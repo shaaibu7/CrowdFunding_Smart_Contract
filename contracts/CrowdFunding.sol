@@ -78,10 +78,11 @@ contract crowdFunding {
     }
 
     function adminWithdraw() public onlyOwner {
+        // Iterating over campaigns to check any campaign that has ended and has remaining funds
         for(uint i = 0; i < campaigns.length; i++) {
-            if(endDonation[campaigns[i].title] && campaigns[i].amountRaised > 0) {
+            if(endDonation[campaigns[i].title] && campaigns[i].amountRaised > 0) { // check if campaign has ended and there are remaining funds
                 uint amount = campaigns[i].amountRaised;
-                (bool success, ) = (msg.sender).call{ value: amount }("");
+                (bool success, ) = (msg.sender).call{ value: amount }(""); // Transfer remaining funds to owner of contract
                 require((success));
 
             }

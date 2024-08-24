@@ -53,8 +53,9 @@ contract crowdFunding {
     }
 
     function donate(uint _campaignId) public payable  {
+        // Iterating the campaings array to get specific campaignId
         for(uint256 i = 0; i < campaigns.length; i++) {
-            require((campaigns[i].deadline) < block.timestamp);
+            require((campaigns[i].deadline) < block.timestamp); //Ensuring deadline for campaign is not reached
             require(!endDonation[campaigns[_campaignId].title]); // reject donation after end of campaign
             if(campaigns[i].goal == campaigns[_campaignId].goal) {
                  campaigns[i].amountRaised +=  msg.value;
